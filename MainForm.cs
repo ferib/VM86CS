@@ -290,28 +290,44 @@ namespace x86CS
 
             string memBlock = "";
             string charList = "";
+            string disasmList = "";
             int offset = 0;
 
             memoryList.Items.Clear();
             memoryCharList.Items.Clear();
+            memoryDisasmList.Items.Clear();
 
             for (int i = 0; i < block.Length / 18; i++)
             {
                 for (offset = 0; offset < 18; offset++)
                 {
+                    // generate byte lines (TODO: add option for byte, word, dword, float, signed/unsigned int etc)
                     byte b = block[i * 18 + offset];
                     memBlock += b.ToString("X2") + " ";
 
+                    // generate character view
                     char c = Convert.ToChar(b);
                     if (Char.IsControl(c))
                         c = '.';
                     charList += c + " ";
                 }
 
+
                 memoryList.Items.Add(memBlock);
                 memoryCharList.Items.Add(charList);
                 memBlock = "";
                 charList = "";
+            }
+
+            // fill disasm list
+            int index = 0;
+            while (memoryDisasmList.Items.Count < 12)
+            {
+                // TODO: addr     bytes       opcode (disassmeble)
+                disasmList = $"{block[index].ToString("X8").PadRight(9)}: XX XX XX XX            OPCODE arg1 arg2 arg3";
+                memoryDisasmList.Items.Add(disasmList);
+                disasmList = "";
+                index += 1;
             }
         }
 

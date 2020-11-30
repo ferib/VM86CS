@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace x86CS.ATADevice
 {
     [Flags]

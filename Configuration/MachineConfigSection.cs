@@ -1,9 +1,10 @@
 ﻿using System.Configuration;
+
 namespace x86CS.Configuration
 {
     public class MachineSection : ConfigurationSection
     {
-        private static ConfigurationPropertyCollection properties;  
+        private static ConfigurationPropertyCollection properties;
         private static ConfigurationProperty memorySize;
         private static ConfigurationProperty floppies;
         private static ConfigurationProperty disks;

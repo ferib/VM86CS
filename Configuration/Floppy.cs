@@ -2,7 +2,7 @@
 
 namespace x86CS.Configuration
 {
-    [ConfigurationCollection(typeof(FloppyElement), CollectionType=ConfigurationElementCollectionType.BasicMap, AddItemName="Floppy")]
+    [ConfigurationCollection(typeof(FloppyElement), CollectionType = ConfigurationElementCollectionType.BasicMap, AddItemName = "Floppy")]
     public class FloppyElementCollection : ConfigurationElementCollection
     {
         private static ConfigurationPropertyCollection properties;
@@ -44,7 +44,7 @@ namespace x86CS.Configuration
         {
             properties = new ConfigurationPropertyCollection();
         }
-        
+
         protected override ConfigurationElement CreateNewElement()
         {
             return new FloppyElement();
@@ -97,7 +97,7 @@ namespace x86CS.Configuration
         private static ConfigurationProperty id;
         private static ConfigurationProperty image;
 
-        [ConfigurationProperty("Id", IsKey=true)]
+        [ConfigurationProperty("Id", IsKey = true)]
         public int Id
         {
             get { return (int)base[id]; }

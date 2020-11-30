@@ -107,6 +107,7 @@
             this.stackGroup = new System.Windows.Forms.GroupBox();
             this.baseList = new System.Windows.Forms.ListBox();
             this.stackList = new System.Windows.Forms.ListBox();
+            this.memoryDisasmList = new System.Windows.Forms.ListBox();
             this.mainMenu.SuspendLayout();
             this.registersGroup.SuspendLayout();
             this.segmentGroup.SuspendLayout();
@@ -399,7 +400,7 @@
             // ssLabel
             // 
             this.ssLabel.AutoSize = true;
-            this.ssLabel.Location = new System.Drawing.Point(134, 35);
+            this.ssLabel.Location = new System.Drawing.Point(133, 35);
             this.ssLabel.Name = "ssLabel";
             this.ssLabel.Size = new System.Drawing.Size(21, 13);
             this.ssLabel.TabIndex = 11;
@@ -416,7 +417,7 @@
             // gsLabel
             // 
             this.gsLabel.AutoSize = true;
-            this.gsLabel.Location = new System.Drawing.Point(77, 35);
+            this.gsLabel.Location = new System.Drawing.Point(75, 35);
             this.gsLabel.Name = "gsLabel";
             this.gsLabel.Size = new System.Drawing.Size(22, 13);
             this.gsLabel.TabIndex = 9;
@@ -450,7 +451,7 @@
             // esLabel
             // 
             this.esLabel.AutoSize = true;
-            this.esLabel.Location = new System.Drawing.Point(134, 16);
+            this.esLabel.Location = new System.Drawing.Point(133, 16);
             this.esLabel.Name = "esLabel";
             this.esLabel.Size = new System.Drawing.Size(21, 13);
             this.esLabel.TabIndex = 5;
@@ -467,7 +468,7 @@
             // dsLabel
             // 
             this.dsLabel.AutoSize = true;
-            this.dsLabel.Location = new System.Drawing.Point(77, 16);
+            this.dsLabel.Location = new System.Drawing.Point(75, 16);
             this.dsLabel.Name = "dsLabel";
             this.dsLabel.Size = new System.Drawing.Size(22, 13);
             this.dsLabel.TabIndex = 3;
@@ -484,7 +485,7 @@
             // csLabel
             // 
             this.csLabel.AutoSize = true;
-            this.csLabel.Location = new System.Drawing.Point(17, 16);
+            this.csLabel.Location = new System.Drawing.Point(16, 16);
             this.csLabel.Name = "csLabel";
             this.csLabel.Size = new System.Drawing.Size(21, 13);
             this.csLabel.TabIndex = 1;
@@ -709,6 +710,7 @@
             // 
             // memoryGroup
             // 
+            this.memoryGroup.Controls.Add(this.memoryDisasmList);
             this.memoryGroup.Controls.Add(this.memoryCharList);
             this.memoryGroup.Controls.Add(this.memoryChar);
             this.memoryGroup.Controls.Add(this.memoryByte);
@@ -719,7 +721,7 @@
             this.memoryGroup.Controls.Add(this.memoryButton);
             this.memoryGroup.Location = new System.Drawing.Point(0, 236);
             this.memoryGroup.Name = "memoryGroup";
-            this.memoryGroup.Size = new System.Drawing.Size(650, 193);
+            this.memoryGroup.Size = new System.Drawing.Size(650, 374);
             this.memoryGroup.TabIndex = 6;
             this.memoryGroup.TabStop = false;
             this.memoryGroup.Text = "Memory:";
@@ -799,7 +801,7 @@
             // 
             this.mainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tpsLabel});
-            this.mainStatus.Location = new System.Drawing.Point(0, 433);
+            this.mainStatus.Location = new System.Drawing.Point(0, 613);
             this.mainStatus.Name = "mainStatus";
             this.mainStatus.Size = new System.Drawing.Size(656, 22);
             this.mainStatus.TabIndex = 8;
@@ -840,11 +842,21 @@
             this.stackList.Size = new System.Drawing.Size(108, 186);
             this.stackList.TabIndex = 0;
             // 
+            // memoryDisasmList
+            // 
+            this.memoryDisasmList.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.memoryDisasmList.FormattingEnabled = true;
+            this.memoryDisasmList.ItemHeight = 14;
+            this.memoryDisasmList.Location = new System.Drawing.Point(4, 195);
+            this.memoryDisasmList.Name = "memoryDisasmList";
+            this.memoryDisasmList.Size = new System.Drawing.Size(640, 172);
+            this.memoryDisasmList.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 455);
+            this.ClientSize = new System.Drawing.Size(656, 635);
             this.Controls.Add(this.stackGroup);
             this.Controls.Add(this.mainStatus);
             this.Controls.Add(this.memoryGroup);
@@ -959,6 +971,7 @@
         private System.Windows.Forms.ListBox baseList;
         private System.Windows.Forms.ToolStripMenuItem loggingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
+        private System.Windows.Forms.ListBox memoryDisasmList;
     }
 }
 

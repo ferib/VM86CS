@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.InteropServices;
+﻿using log4net;
+using System;
 using System.IO;
-using log4net;
+using System.Text;
 
 namespace x86CS.ATADevice
 {
@@ -29,7 +26,7 @@ namespace x86CS.ATADevice
             identifyBuffer[64] = 0x0001;
             identifyBuffer[65] = 0x00b4;
             identifyBuffer[66] = 0x00b4;
-            identifyBuffer[67] = 0x012c; 
+            identifyBuffer[67] = 0x012c;
             identifyBuffer[68] = 0x00b4;
             identifyBuffer[71] = 0x001e;
             identifyBuffer[72] = 0x001e;
@@ -96,7 +93,7 @@ namespace x86CS.ATADevice
                     System.Diagnostics.Debugger.Break();
                     break;
             }
-            
+
         }
 
         private void RequestSense()
@@ -133,27 +130,27 @@ namespace x86CS.ATADevice
 
         private void Read10()
         {
-          uint lba;
-          ushort length;
-          byte[] sectorBytes = new byte[sectorBuffer.Length * 2];
+            uint lba;
+            ushort length;
+            byte[] sectorBytes = new byte[sectorBuffer.Length * 2];
 
-          Util.UShortArrayToByte(sectorBuffer, sectorBytes, 0);
+            Util.UShortArrayToByte(sectorBuffer, sectorBytes, 0);
 
-          lba = Util.SwapByteOrder(BitConverter.ToUInt32(sectorBytes, 2));
-          length = Util.SwapByteOrder(BitConverter.ToUInt16(sectorBytes, 7));
+            lba = Util.SwapByteOrder(BitConverter.ToUInt32(sectorBytes, 2));
+            length = Util.SwapByteOrder(BitConverter.ToUInt16(sectorBytes, 7));
 
-          sectorBytes = new byte[2048 * length];
-          sectorBuffer = new ushort[sectorBytes.Length / 2];
+            sectorBytes = new byte[2048 * length];
+            sectorBuffer = new ushort[sectorBytes.Length / 2];
 
-          isoStream.Seek(lba * 2048, SeekOrigin.Begin);
-          isoStream.Read(sectorBytes, 0, length * 2048);
+            isoStream.Seek(lba * 2048, SeekOrigin.Begin);
+            isoStream.Read(sectorBytes, 0, length * 2048);
 
-          Util.ByteArrayToUShort(sectorBytes, sectorBuffer, 0);
-          bufferIndex = 0;
-          Status |= DeviceStatus.DataRequest;
+            Util.ByteArrayToUShort(sectorBytes, sectorBuffer, 0);
+            bufferIndex = 0;
+            Status |= DeviceStatus.DataRequest;
 
-          if (Cylinder > sectorBytes.Length)
-            Cylinder = (ushort)sectorBytes.Length;
+            if (Cylinder > sectorBytes.Length)
+                Cylinder = (ushort)sectorBytes.Length;
         }
 
         public override void FinishRead()
