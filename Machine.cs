@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using x86CS.GUI;
 //using x86CS.GUI.XNA;
 using x86CS.GUI.SDL;
+using x86CS.GUI.SHARPDX;
 using x86CS.Properties;
 using x86CS.Configuration;
 
@@ -72,14 +73,14 @@ namespace x86CS
                 //    break;
             }
 
-            gui = new TEST(uiForm, vgaDevice); // well fuck
+            gui = new SHARPDX(uiForm, vgaDevice); // SharpDX it is
 
-            //Application.Idle += new System.EventHandler(ApplicationIdle);
+            Application.Idle += new System.EventHandler(ApplicationIdle);
 
             //gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
             //gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
 
-            //gui.Init();
+            gui.Init();
 
             devices = new IDevice[]
                           {

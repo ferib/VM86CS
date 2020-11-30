@@ -1,17 +1,17 @@
-﻿using System.Windows.Forms;
+﻿using SdlDotNet.Core;
 using SdlDotNet.Graphics;
-using SdlDotNet.Core;
 using System.Drawing;
+using System.Windows.Forms;
 using x86CS.Devices;
 
 namespace x86CS.GUI.SDL
 {
-    public class TEST : UI
+    public class SDL : UI
     {
         private Form UIForm;
         private Surface screen;
 
-        public TEST(Form uiForm, VGA device)
+        public SDL(Form uiForm, VGA device)
             : base(uiForm, device)
         {
             UIForm = uiForm;
@@ -60,14 +60,14 @@ namespace x86CS.GUI.SDL
                 int currChar = displayBuffer[i];
                 int fontOffset = currChar * 32;
                 byte attribute = displayBuffer[i + 1];
-                int y = i / 160 * 16;
+                int y = i / 160 * 16; // height
 
                 Color foreColour = vgaDevice.GetColour(attribute & 0xf);
                 Color backColour = vgaDevice.GetColour((attribute >> 4) & 0xf);
 
                 for (var f = fontOffset; f < fontOffset + 16; f++)
                 {
-                    int x = ((i % 160) / 2) * 8;
+                    int x = ((i % 160) / 2) * 8; // width
 
                     for (var j = 7; j >= 0; j--)
                     {
