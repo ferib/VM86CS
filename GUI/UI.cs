@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using System;
 using x86CS.Devices;
+
 namespace x86CS.GUI
 {
     public abstract class UI

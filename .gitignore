@@ -17,3 +17,8 @@ x86Disasm/obj
 obj
 *~
 *.swp
+.vs/
+seabios-1.9.3/
+firmware/
+packages/
+packages/*

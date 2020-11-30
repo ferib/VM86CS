@@ -25,7 +25,8 @@ namespace x86CS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("XNA")]
+        //[global::System.Configuration.DefaultSettingValueAttribute("XNA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SDL")]
         public string graphics {
             get {
                 return ((string)(this["graphics"]));

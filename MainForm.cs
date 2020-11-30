@@ -235,14 +235,50 @@ namespace x86CS
                 addr = 0;
             else
             {
-                try
+                // try register names first
+                switch(memOffset.Text.ToUpper())
                 {
-                    addr = uint.Parse(memOffset.Text, NumberStyles.HexNumber);
+                    case "EAX":
+                        addr = machine.CPU.EAX;
+                        break;
+                    case "EBX":
+                        addr = machine.CPU.EBX;
+                        break;
+                    case "ECX":
+                        addr = machine.CPU.ECX;
+                        break;
+                    case "EDX":
+                        addr = machine.CPU.EDX;
+                        break;
+                    case "ESI":
+                        addr = machine.CPU.ESI;
+                        break;
+                    case "EDI":
+                        addr = machine.CPU.EDI;
+                        break;
+                    case "EBP":
+                        addr = machine.CPU.EBP;
+                        break;
+                    case "ESP":
+                        addr = machine.CPU.ESP;
+                        break;
+                    default:
+                        break;
                 }
-                catch
+
+                // try parse value instead
+                if(addr == 0)
                 {
-                    MessageBox.Show(Resources.Invalid_address, Resources.ErrorTitle);
+                    try
+                    {
+                        addr = uint.Parse(memOffset.Text, NumberStyles.HexNumber);
+                    }
+                    catch
+                    {
+                        MessageBox.Show(Resources.Invalid_address, Resources.ErrorTitle);
+                    }
                 }
+                
             }
 
             Memory.BlockRead(addr, block, block.Length);

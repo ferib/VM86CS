@@ -36,6 +36,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.floppyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.breakpointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loggingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +107,6 @@
             this.stackGroup = new System.Windows.Forms.GroupBox();
             this.baseList = new System.Windows.Forms.ListBox();
             this.stackList = new System.Windows.Forms.ListBox();
-            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.registersGroup.SuspendLayout();
             this.segmentGroup.SuspendLayout();
@@ -180,9 +180,16 @@
             // mountToolStripMenuItem
             // 
             this.mountToolStripMenuItem.Name = "mountToolStripMenuItem";
-            this.mountToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mountToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.mountToolStripMenuItem.Text = "&Mount";
             this.mountToolStripMenuItem.Click += new System.EventHandler(this.MountToolStripMenuItemClick);
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.configToolStripMenuItem.Text = "&Config";
+            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
             // 
@@ -260,7 +267,7 @@
             // ebxLabel
             // 
             this.ebxLabel.AutoSize = true;
-            this.ebxLabel.Location = new System.Drawing.Point(104, 47);
+            this.ebxLabel.Location = new System.Drawing.Point(103, 47);
             this.ebxLabel.Name = "ebxLabel";
             this.ebxLabel.Size = new System.Drawing.Size(28, 13);
             this.ebxLabel.TabIndex = 8;
@@ -303,7 +310,7 @@
             // ediLabel
             // 
             this.ediLabel.AutoSize = true;
-            this.ediLabel.Location = new System.Drawing.Point(107, 102);
+            this.ediLabel.Location = new System.Drawing.Point(106, 102);
             this.ediLabel.Name = "ediLabel";
             this.ediLabel.Size = new System.Drawing.Size(25, 13);
             this.ediLabel.TabIndex = 16;
@@ -329,7 +336,7 @@
             // ecxLabel
             // 
             this.ecxLabel.AutoSize = true;
-            this.ecxLabel.Location = new System.Drawing.Point(104, 20);
+            this.ecxLabel.Location = new System.Drawing.Point(103, 20);
             this.ecxLabel.Name = "ecxLabel";
             this.ecxLabel.Size = new System.Drawing.Size(28, 13);
             this.ecxLabel.TabIndex = 9;
@@ -833,13 +840,6 @@
             this.stackList.Size = new System.Drawing.Size(108, 186);
             this.stackList.TabIndex = 0;
             // 
-            // configToolStripMenuItem
-            // 
-            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
-            this.configToolStripMenuItem.Text = "&Config";
-            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -856,8 +856,8 @@
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainForm";
             this.Text = "x86 CS";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.registersGroup.ResumeLayout(false);

@@ -7,7 +7,7 @@ using log4net;
 using x86CS.Devices;
 using System.Windows.Forms;
 using x86CS.GUI;
-using x86CS.GUI.XNA;
+//using x86CS.GUI.XNA;
 using x86CS.GUI.SDL;
 using x86CS.Properties;
 using x86CS.Configuration;
@@ -63,20 +63,23 @@ namespace x86CS
 
             switch (Settings.Default.graphics.ToUpper())
             {
-                case "XNA":
-                    gui = new XNAUI(uiForm, vgaDevice);
-                    break;
-                case "SDL":
-                    gui = new SDLUI(uiForm, vgaDevice);
-                    break;
+                //case "XNA":
+                //    throw new Exception("XNA not supported OwO");
+                //    //gui = new XNAUI(uiForm, vgaDevice);
+                //    break;
+                //case "SDL":
+                //    gui = new SDLUI(uiForm, vgaDevice);
+                //    break;
             }
 
-            Application.Idle += new System.EventHandler(ApplicationIdle);
+            //gui = new SDLUI(uiForm, vgaDevice); // well fuck
 
-            gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
-            gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
+            //Application.Idle += new System.EventHandler(ApplicationIdle);
 
-            gui.Init();
+            //gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
+            //gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
+
+            //gui.Init();
 
             devices = new IDevice[]
                           {
