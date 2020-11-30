@@ -1,5 +1,6 @@
-﻿using x86Disasm;
-using System;
+﻿using System;
+using x86Disasm;
+
 namespace x86CS.CPU
 {
     public partial class CPU
@@ -27,7 +28,7 @@ namespace x86CS.CPU
         [CPUFunction(OpCode = 0xff05)]
         public void FarJumpMemory(Operand dest)
         {
-            dest.Value = SegRead(dest.Memory.Segment, dest.Memory.Address+2, 16);
+            dest.Value = SegRead(dest.Memory.Segment, dest.Memory.Address + 2, 16);
             dest.Address = SegRead(dest.Memory.Segment, dest.Memory.Address, (int)dest.Size);
 
             FarJump(dest);
@@ -180,7 +181,7 @@ namespace x86CS.CPU
                 Jump(dest);
         }
 
-        [CPUFunction(OpCode=0xe3)]
+        [CPUFunction(OpCode = 0xe3)]
         public void JumpIfCXIsZero(Operand dest)
         {
             if (opSize == 16 && CX == 0)

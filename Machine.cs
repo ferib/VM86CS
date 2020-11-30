@@ -72,14 +72,14 @@ namespace x86CS
                 //    break;
             }
 
-            //gui = new SDLUI(uiForm, vgaDevice); // well fuck
+            gui = new TEST(uiForm, vgaDevice); // well fuck
 
-            //Application.Idle += new System.EventHandler(ApplicationIdle);
+            Application.Idle += new System.EventHandler(ApplicationIdle);
 
-            //gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
-            //gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
+            gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
+            gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
 
-            //gui.Init();
+            gui.Init();
 
             devices = new IDevice[]
                           {

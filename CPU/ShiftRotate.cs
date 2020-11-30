@@ -1,4 +1,5 @@
 ﻿using x86Disasm;
+
 namespace x86CS.CPU
 {
     public partial class CPU
@@ -140,7 +141,7 @@ namespace x86CS.CPU
             {
                 bool NSB;
 
-                switch(source.Value)
+                switch (source.Value)
                 {
                     case 8:
                         NSB = ((dest.Value & 0x40) == 0x40);
@@ -184,7 +185,7 @@ namespace x86CS.CPU
                     break;
             }
 
-            if(source.Value == 1)
+            if (source.Value == 1)
                 OF = dest.MSB ^ CF;
 
             while (tempCount != 0)

@@ -1,15 +1,14 @@
-﻿using System.Diagnostics;
-using log4net;
-using System.Threading;
+﻿using log4net;
 using System;
+using System.Diagnostics;
 
 namespace x86CS.Devices
 {
     public class PIC8259 : IDevice
     {
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(Memory)); 
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(Memory));
 
-        private readonly int[] portsUsed = {0x20, 0x21, 0xa0, 0xa1};
+        private readonly int[] portsUsed = { 0x20, 0x21, 0xa0, 0xa1 };
         private readonly PIController[] controllers;
 
         public event EventHandler<InterruptEventArgs> Interrupt;
@@ -134,7 +133,7 @@ namespace x86CS.Devices
             if ((controller.CommandRegister & 0x3) == 0x3)
                 return controller.InServiceRegister;
 
-            return addr%10 == 0 ? controller.StatusRegister : controller.DataRegister;
+            return addr % 10 == 0 ? controller.StatusRegister : controller.DataRegister;
         }
 
         public void Write(ushort addr, uint value, int size)
@@ -155,15 +154,15 @@ namespace x86CS.Devices
 
             Debug.Assert(controller != null, "controller != null");
             if (!controller.Init)
-                controller.ProcessICW((byte) value);
-            else if (addr%0x10 == 0)
+                controller.ProcessICW((byte)value);
+            else if (addr % 0x10 == 0)
             {
                 if (value == 0x20)
                     controller.EOI();
-                controller.CommandRegister = (byte) value;
+                controller.CommandRegister = (byte)value;
             }
             else
-                controller.MaskRegister = (byte) value;
+                controller.MaskRegister = (byte)value;
         }
     }
 
@@ -200,7 +199,7 @@ namespace x86CS.Devices
             if (((requestRegister >> irq) & 0x1) != 0)
                 return false;
 
-            requestRegister |= (byte) (1 << irq);
+            requestRegister |= (byte)(1 << irq);
 
             return true;
         }
@@ -227,8 +226,8 @@ namespace x86CS.Devices
 
         public void AckInterrupt(byte irq)
         {
-            requestRegister &= (byte) ~(1 << irq);
-            InServiceRegister |= (byte) (1 << irq);
+            requestRegister &= (byte)~(1 << irq);
+            InServiceRegister |= (byte)(1 << irq);
         }
 
         public void EOI()
@@ -247,7 +246,7 @@ namespace x86CS.Devices
                     VectorBase = icw;
                     break;
                 case 2:
-                    linkIRQ = (byte) (icw & 0x7);
+                    linkIRQ = (byte)(icw & 0x7);
                     if (!expectICW4)
                         Init = true;
                     break;

@@ -18,7 +18,7 @@ namespace x86CS.Devices
 
     public class KeyboardDevice : IDevice, INeedsIRQ
     {
-        private readonly int[] portsUsed = {0x60, 0x64};
+        private readonly int[] portsUsed = { 0x60, 0x64 };
         private byte inputBuffer;
         private byte commandByte;
         private KeyboardFlags statusRegister;
@@ -69,7 +69,7 @@ namespace x86CS.Devices
         private void OnIRQ(EventArgs e)
         {
             EventHandler handler = IRQ;
-            if (handler != null) 
+            if (handler != null)
                 handler(this, e);
         }
 
@@ -140,7 +140,7 @@ namespace x86CS.Devices
                     setCommandByte = false;
                     return ret;
                 case 0x64:
-                    return (ushort) statusRegister;
+                    return (ushort)statusRegister;
                 default:
                     System.Diagnostics.Debugger.Break();
                     break;

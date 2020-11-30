@@ -1,9 +1,10 @@
 ﻿using x86Disasm;
+
 namespace x86CS.CPU
 {
     public partial class CPU
     {
-        [CPUFunction(OpCode=0xf4)]
+        [CPUFunction(OpCode = 0xf4)]
         public void Halt()
         {
             Halted = true;
@@ -12,6 +13,7 @@ namespace x86CS.CPU
         [CPUFunction(OpCode = 0x90)]
         public void Nop()
         {
+            // Litterly does nothing ;)
         }
 
         [CPUFunction(OpCode = 0x0f0103)]

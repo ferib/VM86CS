@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using x86Disasm;
+﻿using x86Disasm;
 
 namespace x86CS.CPU
 {
@@ -39,7 +38,7 @@ namespace x86CS.CPU
             WriteOperand(dest);
         }
 
-        [CPUFunction(OpCode = 0x30, Count=6)]
+        [CPUFunction(OpCode = 0x30, Count = 6)]
         [CPUFunction(OpCode = 0x8006)]
         [CPUFunction(OpCode = 0x8106)]
         [CPUFunction(OpCode = 0x8306)]
@@ -53,5 +52,5 @@ namespace x86CS.CPU
 
             WriteOperand(dest);
         }
-   }
+    }
 }

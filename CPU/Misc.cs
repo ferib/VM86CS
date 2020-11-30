@@ -10,7 +10,7 @@ namespace x86CS.CPU
             WriteOperand(dest);
         }
 
-        [CPUFunction(OpCode = 0x0fa2)]
+        [CPUFunction(OpCode = 0x0fa2)] // TODO: check this https://en.wikipedia.org/wiki/CPUID#Calling_CPUID
         public void CpuID(Operand source)
         {
             switch (source.Value)

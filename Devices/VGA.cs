@@ -1,7 +1,5 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using log4net;
-using System;
+﻿using log4net;
+using System.Drawing;
 
 namespace x86CS.Devices
 {
@@ -97,7 +95,7 @@ namespace x86CS.Devices
                     ret = crtControl[crtControlAddress];
                     break;
                 default:
-                  //  System.Diagnostics.Debugger.Break();
+                    //  System.Diagnostics.Debugger.Break();
                     break;
             }
             return ret;

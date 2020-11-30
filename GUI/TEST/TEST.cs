@@ -1,15 +1,13 @@
 ﻿using System.Windows.Forms;
-using SdlDotNet.Graphics;
-using SdlDotNet.Core;
 using System.Drawing;
 using x86CS.Devices;
 
-namespace x86CS.GUI.SDL
+namespace x86CS.GUI.TEST
 {
     public class TEST : UI
     {
         private Form UIForm;
-        private Surface screen;
+
 
         public TEST(Form uiForm, VGA device)
             : base(uiForm, device)
@@ -20,17 +18,13 @@ namespace x86CS.GUI.SDL
 
         public override void Init()
         {
-            screen = Video.SetVideoMode(UIForm.ClientSize.Width, UIForm.ClientSize.Height);
-            Video.WindowCaption = "C# x86 Emulator";
-            Events.KeyboardDown += new System.EventHandler<SdlDotNet.Input.KeyboardEventArgs>(EventsKeyboardDown);
-            Events.KeyboardUp += new System.EventHandler<SdlDotNet.Input.KeyboardEventArgs>(EventsKeyboardUp);
-            Events.Quit += new System.EventHandler<QuitEventArgs>(EventsQuit);
+
         }
 
-        void EventsQuit(object sender, QuitEventArgs e)
-        {
-            Application.Exit();
-        }
+        //void EventsQuit(object sender, QuitEventArgs e)
+        //{
+        //    Application.Exit();
+        //}
 
         void EventsKeyboardUp(object sender, SdlDotNet.Input.KeyboardEventArgs e)
         {
@@ -44,13 +38,11 @@ namespace x86CS.GUI.SDL
 
         public override void Cycle()
         {
-            Events.Poll();
-
-            Surface screenBitmap = new Surface(Video.Screen.Width, Video.Screen.Height);
-
+            // TODO implement this logic with SharpDX?
             var fontBuffer = new byte[0x2000];
             var displayBuffer = new byte[0xfa0];
-            Color[] data = new Color[screenBitmap.Width * screenBitmap.Height];
+            //Color[] data = new Color[screenBitmap.Width * screenBitmap.Height];
+            Color[] data = new Color[520 * 520];
 
             Memory.BlockRead(0xa0000, fontBuffer, fontBuffer.Length);
             Memory.BlockRead(0xb8000, displayBuffer, displayBuffer.Length);
@@ -71,17 +63,17 @@ namespace x86CS.GUI.SDL
 
                     for (var j = 7; j >= 0; j--)
                     {
-                        if (((fontBuffer[f] >> j) & 0x1) != 0)
-                            screenBitmap.Draw(new Point(x, y), foreColour);
-                        else
-                            screenBitmap.Draw(new Point(x, y), backColour);
+                        //if (((fontBuffer[f] >> j) & 0x1) != 0)
+                        //    screenBitmap.Draw(new Point(x, y), foreColour);
+                        //else
+                        //    screenBitmap.Draw(new Point(x, y), backColour);
                         x++;
                     }
                     y++;
                 }
             }
-            screen.Blit(screenBitmap);
-            screen.Update();
+            //screen.Blit(screenBitmap);
+            //screen.Update();
         }
     }
 }

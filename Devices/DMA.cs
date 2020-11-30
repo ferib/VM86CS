@@ -1,5 +1,5 @@
-﻿using System;
-using log4net;
+﻿using log4net;
+using System;
 
 namespace x86CS.Devices
 {
@@ -7,8 +7,8 @@ namespace x86CS.Devices
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(DMAController));
 
-        private readonly int[] portsUsed = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x80, 0x81, 0x82, 0x83};
-        
+        private readonly int[] portsUsed = { 0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x80, 0x81, 0x82, 0x83 };
+
         private readonly byte[] pages;
         private readonly ushort[] memAddress;
         private readonly ushort[] counts;
@@ -24,8 +24,8 @@ namespace x86CS.Devices
         public int[] PortsUsed
         {
             get { return portsUsed; }
-            }
-        
+        }
+
         public DMAController()
         {
             pages = new byte[16];
@@ -37,7 +37,7 @@ namespace x86CS.Devices
         public void DoTransfer(int channel, byte[] data)
         {
             ushort address = memAddress[channel];
-            ushort length = counts[channel+1];  
+            ushort length = counts[channel + 1];
             uint fullAddr = (uint)((pages[channel] << 16) + address);
 
             Logger.Info(String.Format("Transferring {0} bytes from {1:X}", length + 1, fullAddr));
@@ -55,16 +55,16 @@ namespace x86CS.Devices
         private void SetAddressOrCount(byte index, byte value)
         {
             bool address = true;
-            int channel = index/2;
-            int tmp = index%2;
-  
+            int channel = index / 2;
+            int tmp = index % 2;
+
             if (tmp != 0)
             {
                 channel += tmp;
                 address = false;
             }
 
-            if(flipFlop)
+            if (flipFlop)
             {
                 if (address)
                     memAddress[channel] = memAddress[channel].SetHigh(value);
@@ -130,13 +130,13 @@ namespace x86CS.Devices
                     Reset();
                     break;
                 case 0x80:
-                    pages[0] = (byte) value;
+                    pages[0] = (byte)value;
                     break;
                 case 0x81:
-                    pages[2] = (byte) value;
+                    pages[2] = (byte)value;
                     break;
                 case 0x82:
-                    pages[3] = (byte) value;
+                    pages[3] = (byte)value;
                     break;
                 case 0x83:
                     pages[1] = (byte)value;

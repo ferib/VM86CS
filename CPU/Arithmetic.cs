@@ -34,12 +34,12 @@ namespace x86CS.CPU
             result.Value = dest.Value + source.Value;
             SetCPUFlags(result);
             CF = result.Value < dest.Value;
-            if (((source.SignedValue > 0) && (dest.SignedValue > (dest.SignedMax - source.SignedValue))) || 
+            if (((source.SignedValue > 0) && (dest.SignedValue > (dest.SignedMax - source.SignedValue))) ||
                 ((source.SignedValue < 0) && (dest.SignedValue < (dest.SignedMin - source.SignedValue))))
                 OF = true;
             else
                 OF = false;
-            
+
             WriteOperand(result);
         }
 

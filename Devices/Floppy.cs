@@ -1,6 +1,6 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.IO;
-using log4net;
 
 namespace x86CS.Devices
 {
@@ -10,7 +10,7 @@ namespace x86CS.Devices
 
         private const int IrqNumber = 6;
         private const int DmaChannel = 2;
-        private readonly int[] portsUsed = {0x3f0, 0x3f1, 0x3f2, 0x3f4, 0x3f5, 0x3f7};
+        private readonly int[] portsUsed = { 0x3f0, 0x3f1, 0x3f2, 0x3f4, 0x3f5, 0x3f7 };
 
         private readonly byte[] data;
 
@@ -57,7 +57,7 @@ namespace x86CS.Devices
         public void OnDMA(ByteArrayEventArgs e)
         {
             EventHandler<ByteArrayEventArgs> handler = DMA;
-            if (handler != null) 
+            if (handler != null)
                 handler(this, e);
         }
 
@@ -177,7 +177,7 @@ namespace x86CS.Devices
         {
             if (inCommand)
             {
-                data[paramIdx++] = (byte) value;
+                data[paramIdx++] = (byte)value;
                 if (paramIdx == paramCount)
                 {
                     RunCommand();
@@ -239,10 +239,10 @@ namespace x86CS.Devices
             switch (addr)
             {
                 case 0x3f2:
-                    if(((digitalOutput & DORSetting.Reset) == 0) && (((DORSetting)value & DORSetting.Reset) == DORSetting.Reset))
+                    if (((digitalOutput & DORSetting.Reset) == 0) && (((DORSetting)value & DORSetting.Reset) == DORSetting.Reset))
                         Reset();
 
-                    digitalOutput = (DORSetting) value;
+                    digitalOutput = (DORSetting)value;
                     break;
                 case 0x3f5:
                     ProcessCommandAndArgs((ushort)value);
@@ -287,19 +287,19 @@ namespace x86CS.Devices
         SPECIFY = 3,
         SenseDriveStatus = 4,
         WriteData = 5,
-        ReadData = 6, 
-        Recalibrate = 7,   
-        SenseInterrupt = 8, 
+        ReadData = 6,
+        Recalibrate = 7,
+        SenseInterrupt = 8,
         WriteDeletedData = 9,
-        ReadID = 10,	
+        ReadID = 10,
         ReadDeletedData = 12,
         FormatTrack = 13,
-        Seek = 15,     
+        Seek = 15,
         Version = 16,
         ScanEqual = 17,
-        PerpendicularMode = 18,	
-        Configure = 19,    
-        Lock = 20,     
+        PerpendicularMode = 18,
+        Configure = 19,
+        Lock = 20,
         Verify = 22,
         ScanLowOrEqual = 25,
         ScanHighOrEqual = 29

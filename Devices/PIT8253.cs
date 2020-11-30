@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 
 namespace x86CS.Devices
 {
@@ -149,7 +149,7 @@ namespace x86CS.Devices
                     else
                         counter = Reload;
                     Running = true;
-                    if(!counterThread.IsAlive)
+                    if (!counterThread.IsAlive)
                         counterThread.Start();
 
                 }
@@ -184,7 +184,7 @@ namespace x86CS.Devices
             const double frequency = (double)1 / (3579545 / 3);
 
             stopwatch.Start();
-            
+
             while (Running)
             {
                 counter -= stopwatch.Elapsed.TotalSeconds / frequency;

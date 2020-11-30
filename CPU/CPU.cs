@@ -1,10 +1,8 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using log4net;
-using System.Collections.Generic;
-using x86Disasm;
+﻿using log4net;
+using System;
 using System.Reflection;
-using System.Threading;
+using System.Runtime.InteropServices;
+using x86Disasm;
 
 namespace x86CS.CPU
 {
@@ -406,14 +404,14 @@ namespace x86CS.CPU
             disasm.CodeSize = codeSize;
             ProcessOperations();
             realModeEntry = new GDTEntry
-                                {
-                                    BaseAddress = 0,
-                                    Is32Bit = false,
-                                    IsAccessed = true,
-                                    IsCode = false,
-                                    Limit = 0xffff,
-                                    IsWritable = true
-                                };
+            {
+                BaseAddress = 0,
+                Is32Bit = false,
+                IsAccessed = true,
+                IsCode = false,
+                Limit = 0xffff,
+                IsWritable = true
+            };
 
             Halted = false;
 
@@ -593,7 +591,7 @@ namespace x86CS.CPU
                 case OperandType.Memory:
                     if (operand.Memory.Base != GeneralRegister.None)
                     {
-                        if(operand.Memory.Size == 16)
+                        if (operand.Memory.Size == 16)
                             operand.Memory.Address = registers[(int)operand.Memory.Base].Word;
                         else
                             operand.Memory.Address = registers[(int)operand.Memory.Base].DWord;
@@ -606,18 +604,18 @@ namespace x86CS.CPU
 
                     if (operand.Memory.Index != GeneralRegister.None)
                     {
-                        if(operand.Memory.Size == 16)
+                        if (operand.Memory.Size == 16)
                             operand.Memory.Address += registers[(int)operand.Memory.Index].Word;
                         else
                             operand.Memory.Address += registers[(int)operand.Memory.Index].DWord;
                     }
 
-                    if(operand.Size == 16)
+                    if (operand.Size == 16)
                         operand.Memory.Address = (ushort)(operand.Memory.Address + operand.Memory.Displacement);
                     else
                         operand.Memory.Address = (uint)(operand.Memory.Address + operand.Memory.Displacement);
 
-                    if(disasm.CurrentOpCode != 0x8d)  // Don't try to read when it's a LEA instruction
+                    if (disasm.CurrentOpCode != 0x8d)  // Don't try to read when it's a LEA instruction
                         operand.Value = SegRead(operand.Memory.Segment, operand.Memory.Address, (int)operand.Size);
                     break;
                 default:
@@ -759,7 +757,7 @@ namespace x86CS.CPU
             else
             {
                 SP -= 2;
-                SegWriteWord(SegmentRegister.SS, SP, (ushort) value);
+                SegWriteWord(SegmentRegister.SS, SP, (ushort)value);
             }
         }
 

@@ -40,7 +40,7 @@ namespace x86CS.CPU
             SetCPUFlags(tmp);
         }
 
-        [CPUFunction(OpCode=0xd4)]
+        [CPUFunction(OpCode = 0xd4)]
         public void ASCIIAdjustAfterMultiply(Operand source)
         {
             Operand temp = new Operand();
@@ -76,7 +76,7 @@ namespace x86CS.CPU
             AL &= 0xf;
         }
 
-        [CPUFunction(OpCode=0x27)]
+        [CPUFunction(OpCode = 0x27)]
         public void DecimalAdjustAfterAddition()
         {
             Operand tempOp = new Operand();

@@ -1,4 +1,5 @@
 ﻿using x86Disasm;
+
 namespace x86CS.CPU
 {
     public partial class CPU
@@ -55,7 +56,7 @@ namespace x86CS.CPU
             if (opSize == 32)
             {
                 EBP = frameTemp;
-                ESP = EBP - size.Value;   
+                ESP = EBP - size.Value;
             }
             else
             {
