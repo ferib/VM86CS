@@ -183,8 +183,7 @@
     <Compile Include="Devices\PIT8253.cs" />
     <Compile Include="Devices\VGA.cs" />
     <Compile Include="GUI\SDL\SDLUI.cs" />
-    <None Include="GUI\TEST\TEST_OLD.cs" />
-    <Compile Include="GUI\TEST\TEST.cs" />
+    <Compile Include="GUI\SHARPDX\SHARPDX.cs" />
     <Compile Include="GUI\UI.cs" />
     <Compile Include="ATADevice\HardDisk.cs" />
     <Compile Include="ATADevice\Structs.cs" />
