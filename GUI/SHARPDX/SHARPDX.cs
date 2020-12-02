@@ -1,6 +1,7 @@
 ﻿using SharpDX;
 using SharpDX.Direct2D1;
 using System.Drawing;
+using System.Windows;
 using System.Windows.Forms;
 using x86CS.Devices;
 
@@ -11,8 +12,6 @@ namespace x86CS.GUI.SHARPDX
         private Form UIForm;
         private byte[] Memory;
         private SharpDX.Direct2D1.Bitmap BitmapBuffer;
-        //private int Width = 160 * 16;
-        //private int Height = 160 * 8;
         private int Width = 640;
         private int Height = 400;
 
@@ -61,22 +60,27 @@ namespace x86CS.GUI.SHARPDX
             DrawTarget.BeginDraw();
             DrawTarget.Clear(new SharpDX.Mathematics.Interop.RawColor4(0f, 0f, 0f, 1f));
             DrawTarget.EndDraw();
+
+            // init events
+            UIForm.KeyDown += new KeyEventHandler(EventsKeyboardDown);
+            UIForm.KeyUp += new KeyEventHandler(EventsKeyboardUp);
+            UIForm.FormClosed += new FormClosedEventHandler(EventsQuit);
         }
 
-        //void EventsQuit(object sender, QuitEventArgs e)
-        //{
-        //    Application.Exit();
-        //}
+        void EventsQuit(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
 
-        //void EventsKeyboardUp(object sender, SdlDotNet.Input.KeyboardEventArgs e)
-        //{
-        //    OnKeyUp(e.Scancode);
-        //}
+        void EventsKeyboardUp(object sender, KeyEventArgs e)
+        {
+            OnKeyUp((uint)e.KeyData); // TODO: replace with scancode
+        }
 
-        //void EventsKeyboardDown(object sender, SdlDotNet.Input.KeyboardEventArgs e)
-        //{
-        //    OnKeyDown(e.Scancode);
-        //}
+        void EventsKeyboardDown(object sender, KeyEventArgs e)
+        {
+            OnKeyDown((uint)e.KeyValue); // TODO: replace with scancode
+        }
 
         public override void Cycle()
         {
@@ -136,7 +140,7 @@ namespace x86CS.GUI.SHARPDX
 
             // Draw bitmap to device
             DrawTarget.BeginDraw();
-            DrawTarget.Clear(new SharpDX.Mathematics.Interop.RawColor4(0f, 0f, 1f, 1f));
+            DrawTarget.Clear(new SharpDX.Mathematics.Interop.RawColor4(1f, 0f, 1f, 1f));
             DrawTarget.DrawBitmap(BitmapBuffer, 1.0f, BitmapInterpolationMode.Linear);
             DrawTarget.EndDraw();
         }

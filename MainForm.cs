@@ -262,6 +262,9 @@ namespace x86CS
                     case "ESP":
                         addr = machine.CPU.ESP;
                         break;
+                    case "EIP":
+                        addr = machine.CPU.EIP;
+                        break;
                     default:
                         break;
                 }
@@ -320,15 +323,23 @@ namespace x86CS
             }
 
             // fill disasm list
-            int index = 0;
+             var disassm = new x86Disasm.Disassembler(new x86Disasm.ReadCallback(DisassemblerRead));
+
+            uint DisassemblerRead(uint offs, int size)
+            {
+                return Memory.Read(addr + offs, size);
+            }
+
+            uint index = 0;
             while (memoryDisasmList.Items.Count < 12)
             {
+                int len = disassm.Disassemble(addr+index);
                 // TODO: addr     bytes       opcode (disassmeble)
-                disasmList = $"{block[index].ToString("X8").PadRight(9)}: XX XX XX XX            OPCODE arg1 arg2 arg3";
+                disasmList = $"{block[index].ToString("X8").PadRight(9)}: {disassm.InstructionText}";
                 memoryDisasmList.Items.Add(disasmList);
                 disasmList = "";
-                index += 1;
-            }
+                index += (uint)len;
+            }       
         }
 
         private void BreakpointsToolStripMenuItemClick(object sender, EventArgs e)

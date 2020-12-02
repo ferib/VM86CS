@@ -21,13 +21,16 @@ namespace x86CS
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(Machine));
 
+        private static string BIOSImagePath = "BIOS-bochs-latest";
+        private static string VGABIOSImagePath = "VGABIOS-lgpl-latest";
+
         private readonly Dictionary<uint, uint> breakpoints = new Dictionary<uint, uint>();
         private readonly Dictionary<uint, uint> tempBreakpoints = new Dictionary<uint, uint>();
         private readonly UI gui;
         private readonly IDevice[] devices;
-        private readonly PIC8259 picDevice;
+        private readonly PIC8259 picDevice; // interrupt controller
         private readonly VGA vgaDevice;
-        private readonly DMAController dmaController;
+        private readonly DMAController dmaController; // Direct Memory Access
         private readonly ATA ataDevice;
 
         private Dictionary<ushort, IOEntry> ioPorts;
@@ -77,8 +80,8 @@ namespace x86CS
 
             Application.Idle += new System.EventHandler(ApplicationIdle);
 
-            //gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
-            //gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
+            gui.KeyDown += new EventHandler<UIntEventArgs>(GUIKeyDown);
+            gui.KeyUp += new EventHandler<UIntEventArgs>(GUIKeyUp);
 
             gui.Init();
 
@@ -102,6 +105,7 @@ namespace x86CS
             while (AppStillIdle)
             {
                 gui.Cycle();
+                //keyboard.KeyPress(0x1c); // enter
             }
         }
 
@@ -181,7 +185,7 @@ namespace x86CS
 
         private void LoadBIOS()
         {
-            FileStream biosStream = File.OpenRead("BIOS-bochs-latest");
+            FileStream biosStream = File.OpenRead(BIOSImagePath);
             var buffer = new byte[biosStream.Length];
 
             uint startAddr = (uint)(0xfffff - buffer.Length) + 1;
@@ -195,7 +199,7 @@ namespace x86CS
 
         private void LoadVGABios()
         {
-            FileStream biosStream = File.OpenRead("VGABIOS-lgpl-latest");
+            FileStream biosStream = File.OpenRead(VGABIOSImagePath);
             var buffer = new byte[biosStream.Length];
 
             biosStream.Read(buffer, 0, buffer.Length);
@@ -208,7 +212,7 @@ namespace x86CS
         private void SetupSystem()
         {
             ioPorts = new Dictionary<ushort, IOEntry>();
-//            keyboard = new KeyboardDevice();
+            //keyboard = new KeyboardDevice();
 
             LoadBIOS();
             LoadVGABios();

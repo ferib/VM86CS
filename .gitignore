@@ -22,3 +22,7 @@ seabios-1.9.3/
 firmware/
 packages/
 packages/*
+x86ARMDisasm/*
+x86ARMDisasm/bin/*
+x86ARMDisasm/obj/*
+CPU_ARM/*

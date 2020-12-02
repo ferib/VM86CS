@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Runtime.InteropServices;
+using System;
 using System.Text;
 
 namespace x86CS.ATADevice
@@ -50,7 +52,7 @@ namespace x86CS.ATADevice
             identifyBuffer[80] = 0x007e; // ATA 6
             identifyBuffer[82] = 0x4000;
             identifyBuffer[83] = 0x7400;
-            identifyBuffer[84] = 0x4000;
+            identifyBuffer[84] = 0x4000; 
             identifyBuffer[85] = 0x4000;
             identifyBuffer[86] = 0x7400;
             identifyBuffer[87] = 0x4000;
@@ -64,6 +66,12 @@ namespace x86CS.ATADevice
         public override void LoadImage(string filename)
         {
             byte[] buffer;
+
+            if(!File.Exists(filename))
+            {
+                Console.WriteLine($"Failed loading image {filename}");
+                return;
+            }
 
             stream = File.Open(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
             reader = new BinaryReader(stream);
@@ -206,7 +214,7 @@ namespace x86CS.ATADevice
                     System.Diagnostics.Debugger.Break();
                     break;
             }
-
+           
         }
 
         public override void RunCommand(byte command)
@@ -235,7 +243,7 @@ namespace x86CS.ATADevice
 
         public override void FinishRead()
         {
-
+            
         }
     }
 }
