@@ -7,9 +7,7 @@ namespace x86CS.GUI.ASCII
 {
     public static class Keymap
     {
-        // arrays to map pixels to char
-        public static byte[][] KeyTableB = { K_A, K_B };
-        public static char[] KeyTableA = {'A', 'B'};
+        
 
         #region UpperCase
         public static byte[] K_A = new byte[]
@@ -29,6 +27,8 @@ namespace x86CS.GUI.ASCII
             0xC6, // 1100 0110
             0x00, // 0000 0000
             0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
         };
 
         public static byte[] K_B = new byte[]
@@ -45,6 +45,8 @@ namespace x86CS.GUI.ASCII
             0x66, // 0110 0110
             0x66, // 0110 0110
             0xFC, // 1111 1100
+            0x00, // 0000 0000
+            0x00, // 0000 0000
             0x00, // 0000 0000
             0x00, // 0000 0000
         };
@@ -67,6 +69,8 @@ namespace x86CS.GUI.ASCII
             0x00, // 0000 0000
             0x00, // 0000 0000
             0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
         };
         #endregion
 
@@ -76,8 +80,30 @@ namespace x86CS.GUI.ASCII
 
         #region Specials
         // TODO
+
+        public static byte[] K_Whitespace = new byte[]
+       {
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+            0x00, // 0000 0000
+       };
         #endregion
 
-
+        // arrays to map pixels to char
+        public static char[] KeyTableA = { 'A', 'B', ' ' };
+        public static object[] KeyTableB = { K_A, K_B, K_Whitespace };
     }
 }

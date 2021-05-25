@@ -121,6 +121,7 @@ namespace x86CS.GUI.SHARPDX
                             Memory[pixelIndex + 1] = foreColour.G;
                             Memory[pixelIndex + 2] = foreColour.B;
                             Memory[pixelIndex + 3] = foreColour.A;
+                            var d = fontBuffer[f];
                         }
                         else
                         {

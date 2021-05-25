@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using x86CS.Devices;
@@ -9,7 +12,6 @@ namespace x86CS.GUI.ASCII
     {
         private Form UIForm;
         private byte[] Memory;
-        private SharpDX.Direct2D1.Bitmap BitmapBuffer;
         private int Width = 640;
         private int Height = 400;
 
@@ -21,8 +23,24 @@ namespace x86CS.GUI.ASCII
             : base(uiForm, device)
         {
             UIForm = uiForm;
-            //UIForm.Close();
-            UIForm.Show();
+            UIForm.Close();
+
+            // spawn console window
+            ProcessStartInfo psi = new ProcessStartInfo("cmd.exe")
+            {
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false
+            };
+
+            Process p = Process.Start(psi);
+
+            StreamWriter sw = p.StandardInput;
+            StreamReader sr = p.StandardOutput;
+
+            sw.WriteLine("Initialising ASCII UI..");
+            sr.Close();
         }
 
         public override void Init()
@@ -69,33 +87,47 @@ namespace x86CS.GUI.ASCII
                 int currChar = displayBuffer[i];
                 int fontOffset = currChar * 32;
                 byte attribute = displayBuffer[i + 1];
-                int y = i / 160 * 16; // height pixels
+                int charIndex = displayBuffer.Length / 16 / 8;
 
                 Color foreColour = vgaDevice.GetColour(attribute & 0xf);
                 Color backColour = vgaDevice.GetColour((attribute >> 4) & 0xf);
 
                 for (var f = fontOffset; f < fontOffset + 16; f++)
                 {
-                    int x = ((i % 160) / 2) * 8; // width pixels
-
-                    for (var j = 7; j >= 0; j--)
+                    for (var a = 0; a < Keymap.KeyTableA.Length; a++)
                     {
-                        if (((fontBuffer[f] >> j) & 0x1) != 0)
+                        bool isMatch = true;
+                        byte[] pixelkey = (byte[])Keymap.KeyTableB[a];
+                        for (var j = 0; j < 16; j++)
                         {
-                            // front
+                            if (pixelkey[j] != BitConverter.GetBytes(fontBuffer[f])[0])
+                            {
+                                isMatch = false;
+                                break;
+                            }
                         }
-                        else
+
+                        if (isMatch)
                         {
-                           // back
+                            Memory[f] = (byte)Keymap.KeyTableA[a];
+                            if (f % (160 / 8) == 0)
+                                Console.WriteLine(Keymap.KeyTableA[a]); // EOL
+                            else
+                                Console.Write(Keymap.KeyTableA[a]);
+                            break;
                         }
-                        x++;
+                        else if (a == Keymap.KeyTableB.Length - 1)
+                        {
+                            // end of keys?
+                            Memory[f] = (byte)'?';
+                            Console.Write('?');
+                        }
                     }
-                    y++;
                 }
             }
 
             // copy buffer to device
-            BitmapBuffer.CopyFromMemory(Memory, Width * 4);
+            //BitmapBuffer.CopyFromMemory(Memory, Width * 4);
 
             // Draw bitmap to device
         }

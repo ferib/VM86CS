@@ -12,6 +12,7 @@ using x86CS.GUI.SDL;
 using x86CS.GUI.SHARPDX;
 using x86CS.Properties;
 using x86CS.Configuration;
+using x86CS.GUI.ASCII;
 
 namespace x86CS
 {
@@ -77,6 +78,7 @@ namespace x86CS
             }
 
             gui = new SHARPDX(uiForm, vgaDevice); // SharpDX it is
+            //gui = new ASCII(uiForm, vgaDevice); // ASCII test
 
             Application.Idle += new System.EventHandler(ApplicationIdle);
 
@@ -86,9 +88,9 @@ namespace x86CS
             gui.Init();
 
             devices = new IDevice[]
-                          {
-                              FloppyDrive, new CMOS(ataDevice), new Misc(), new PIT8253(), picDevice, keyboard, dmaController, vgaDevice, ataDevice
-                          };
+            {
+                FloppyDrive, new CMOS(ataDevice), new Misc(), new PIT8253(), picDevice, keyboard, dmaController, vgaDevice, ataDevice
+            };
 
             CPU = new CPU.CPU();
 
